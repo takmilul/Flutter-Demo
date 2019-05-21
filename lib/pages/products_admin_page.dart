@@ -17,39 +17,8 @@ class ProductsAdminPage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        drawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              AppBar(
-                automaticallyImplyLeading: false,
-                title: Text("Add Product"),
-              ),
-              ListTile(
-                leading: Icon(Icons.edit),
-                title: Text('View Products'),
-                onTap: () => Navigator.pushReplacementNamed(
-                      context,
-                      ProductPage.routeName,
-                    ),
-              ),
-            ],
-          ),
-        ),
-        appBar: AppBar(
-          title: Text('Manage Product'),
-          bottom: TabBar(
-            tabs: <Widget>[
-              Tab(
-                child: Text('Create Product'),
-                icon: Icon(Icons.create),
-              ),
-              Tab(
-                child: Text('My Products'),
-                icon: Icon(Icons.list),
-              ),
-            ],
-          ),
-        ),
+        drawer: _buildDrawer(context),
+        appBar: _buildAppBar(),
         body: TabBarView(
           children: <Widget>[
             ProductCreatePage(addProduct, deleteProduct),
@@ -59,4 +28,44 @@ class ProductsAdminPage extends StatelessWidget {
       ),
     );
   }
+  
+  Widget _buildDrawer(BuildContext context){
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          AppBar(
+            automaticallyImplyLeading: false,
+            title: Text("Add Product"),
+          ),
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text('View Products'),
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              ProductPage.routeName,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildAppBar(){
+    return AppBar(
+      title: Text('Manage Product'),
+      bottom: TabBar(
+        tabs: <Widget>[
+          Tab(
+            child: Text('Create Product'),
+            icon: Icon(Icons.create),
+          ),
+          Tab(
+            child: Text('My Products'),
+            icon: Icon(Icons.list),
+          ),
+        ],
+      ),
+    );
+  }
+  
 }

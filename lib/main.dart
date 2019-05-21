@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/auth_page.dart';
+import 'package:flutter_app/pages/default_page.dart';
 import 'package:flutter_app/pages/product_page.dart';
 import 'package:flutter_app/pages/products_admin_page.dart';
 import 'package:flutter_app/pages/product_create_page.dart';
@@ -52,6 +53,7 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: '/',
       routes: {
+        DefaultPage.routeName: (context) => DefaultPage(),
         AuthPage.routeName: (context) => AuthPage(_addProduct, _deleteProduct),
         ProductPage.routeName: (context) => ProductPage(_products),
         ProductsAdminPage.routeName: (context) => ProductsAdminPage(_addProduct, _deleteProduct),
@@ -68,7 +70,7 @@ class _MyAppState extends State<MyApp> {
         if (elements[1] == 'ProductDetailPage') {
           int index = int.parse(elements[2]);
           return MaterialPageRoute<bool>(
-            builder: (BuildContext context) => ProductDetail(_products[index]['title'], _products[index]['imageUrl']),
+            builder: (BuildContext context) => ProductDetail(_products[index]['title'], _products[index]['imageUrl'], _products[index]['address']),
           );
         }
         return null;
