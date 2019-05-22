@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/product_page.dart';
 
 class AuthPage extends StatelessWidget {
-  static const routeName = '/authPage';
+//  static const routeName = '/authPage';
+  static const String routeName = '/';
   final bool isAgreed = false;
   final Function addProduct;
   final Function deleteProduct;

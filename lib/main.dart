@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Material Flutter',
       theme: ThemeData(
         primarySwatch: Colors.teal,
-        accentColor: Colors.purple,
+        accentColor: Colors.cyan,
       ),
       initialRoute: '/',
       routes: {

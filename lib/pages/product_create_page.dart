@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/product_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:toast/toast.dart';
 
 class ProductCreatePage extends StatefulWidget {
   static const routeName = '/ProductCreatePage';
@@ -19,28 +21,31 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   String descriptionText;
   double priceText;
   bool isAgreed = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double targetWidth = deviceWidth > 550.0 ? 400.0 : deviceWidth * 0.9;
     final double targetPadding = deviceWidth - targetWidth;
-    
+
     return Container(
       margin: EdgeInsets.all(8.0),
-      child: ListView(
-        padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
-        children: <Widget>[
-          _buildTitleTextField(),
-          _buildDescriptionTextField(),
-          _buildPriceTextField(),
-          _buildSwitch(),
-          RaisedButton(
-            color: Theme.of(context).accentColor,
-            child: Text('Save'),
-            onPressed: _createProduct,
-          ),
-          /*GestureDetector(
+      child: Form(
+        key: _formKey,
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
+          children: <Widget>[
+            _buildTitleTextField(),
+            _buildDescriptionTextField(),
+            _buildPriceTextField(),
+            _buildSwitch(),
+            RaisedButton(
+              color: Theme.of(context).accentColor,
+              child: Text('Save'),
+              onPressed: _createProduct,
+            ),
+            /*GestureDetector(
             onTap: _createProduct,
             child: Container(
               alignment: Alignment.center,
@@ -49,15 +54,21 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
               child: Text('My Button'),
             ),
           ),*/
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildTitleTextField() {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(labelText: 'Title'),
-      onChanged: (String value) {
+      validator: (String value){
+        if(value.isEmpty){
+          return 'Required field';
+        }
+      },
+      onSaved: (String value) {
         setState(
           () {
             titleText = value;
@@ -68,10 +79,15 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   }
 
   Widget _buildDescriptionTextField() {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(labelText: 'Description'),
+      validator: (String value){
+        if(value.isEmpty){
+          return 'Required field';
+        }
+      },
       maxLines: 4,
-      onChanged: (String value) {
+      onSaved: (String value) {
         setState(
           () {
             descriptionText = value;
@@ -82,10 +98,15 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   }
 
   Widget _buildPriceTextField() {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(labelText: 'Price'),
+      validator: (String value){
+        if(value.isEmpty){
+          return 'Required field';
+        }
+      },
       keyboardType: TextInputType.number,
-      onChanged: (String value) {
+      onSaved: (String value) {
         setState(
           () {
             priceText = double.parse(value);
@@ -102,12 +123,17 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
       onChanged: (bool value) {
         setState(() {
           isAgreed = value;
-        });
+        },);
       },
     );
   }
 
   void _createProduct() {
+    if(!_formKey.currentState.validate()){
+      return;
+    }
+    _formKey.currentState.save();
+    Fluttertoast.showToast(msg: 'field required');
     final Map<String, dynamic> product = {
       'title': titleText,
       'description': descriptionText,

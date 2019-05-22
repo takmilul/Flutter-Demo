@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+  english_words:
+    dependency: "direct main"
+    description:
+      name: english_words
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.5"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -46,6 +53,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.11"
   matcher:
     dependency: transitive
     description:
@@ -128,6 +142,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.4"
+  toast:
+    dependency: "direct main"
+    description:
+      name: toast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
   typed_data:
     dependency: transitive
     description:
