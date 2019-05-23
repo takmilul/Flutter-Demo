@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/widgets/products/products.dart';
+import 'default_page.dart';
 import 'products_admin_page.dart';
 
 class ProductPage extends StatelessWidget {
@@ -34,6 +35,11 @@ class ProductPage extends StatelessWidget {
               context,
               ProductsAdminPage.routeName,
             ),
+          ),
+          ListTile(
+            leading: Icon(Icons.dashboard),
+            title: Text('Design Test'),
+            onTap: () => Navigator.pushNamed(context, DefaultPage.routeName),
           ),
         ],
       ),

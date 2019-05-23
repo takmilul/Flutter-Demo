@@ -6,8 +6,6 @@ class CustomShapeClipper extends CustomClipper<Path>{
     final Path path = Path();
     path.lineTo(0.0, size.height);
     
-    print("Size - Height: ${size.height.toString()}, Weight: ${size.width.toString()}");
-    
     var firstControlPoint = Offset(size.width * 0.20 , size.height -50);
     var firstEndPoint = Offset(size.width * 0.5, size.height - 30);
     
