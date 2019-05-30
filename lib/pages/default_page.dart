@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/custom_shape/clip_shadow_path.dart';
 
-import 'custom_shape_clipper.dart';
+import 'package:flutter_app/custom_shape/custom_shape_clipper.dart';
 
 class DefaultPage extends StatefulWidget {
 //  static const String routeName = '/';
-
   static const String routeName = '/defaultPage';
 
   @override
@@ -107,23 +106,7 @@ class _MyDefaultPageState extends State<DefaultPage> {
                     ),
                   ),
                 ),
-                Container(
-                  height: 50.0,
-                  width: 50.0,
-                  child: Center(),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 2.0,
-                        spreadRadius: 0.5,
-                        offset: Offset(0.0, 3.0),
-                      ),
-                    ],
-                  ),
-                ),
+                
               ],
             ),
             SizedBox(
@@ -145,6 +128,23 @@ class _MyDefaultPageState extends State<DefaultPage> {
                     offset: Offset(0.0, 2.0),
                   ),
                 ],
+              ),
+              child: Container(
+                height: 50.0,
+                width: 50.0,
+                child: Center(),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 2.0,
+                      spreadRadius: 0.5,
+                      offset: Offset(0.0, 3.0),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
