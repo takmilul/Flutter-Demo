@@ -26,32 +26,22 @@ class AuthPage extends StatelessWidget {
         padding: EdgeInsets.all(10.0),
         child: Center(
           child: SingleChildScrollView(
-            child: ClipShadowPath(
-              shadow: Shadow(blurRadius: 4.0),
-              clipper: ProfileCardClipper(),
-              child: Container(
-                padding: EdgeInsets.only(top: 80.0, left: 10.0, right: 10.0, bottom: 10.0),
-                width: targetWidth,
-                color: Color(0xFF414457),
-                child: Column(
-                  children: <Widget>[
-                    _buildEmailTextField(),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    _buildPasswordTextField(),
-                    _buildAcceptSwitch(),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    RaisedButton(
-                      child: Text("Login"),
-                      onPressed: () => Navigator.pushReplacementNamed(
-                          context, ProductPage.routeName),
-                    ),
-                  ],
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(top: 50.0, bottom: 10, left: 2, right: 2),
+                  child: ClipShadowPath(
+                    shadow: Shadow(color: Colors.black54, blurRadius: 3.0, offset: Offset(0.0, 0.5)),
+                    clipper: ProfileCardClipper(context),
+                    child: buildLoginCard(context),
+                  ),
                 ),
-              ),
+                Positioned(
+                  top: 20,
+                  left: deviceWidth / 2 - 45,
+                  child: buildAvatar(),
+                ),
+              ],
             ),
           ),
         ),
@@ -59,25 +49,85 @@ class AuthPage extends StatelessWidget {
     );
   }
 
+  Container buildLoginCard(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16.0),
+        color: Color(0xFF414457),
+      ),
+      padding: EdgeInsets.all(10.0),
+      margin: EdgeInsets.all(1.0),
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 80.0,
+          ),
+          _buildEmailTextField(),
+          SizedBox(
+            height: 10.0,
+          ),
+          _buildPasswordTextField(),
+          _buildAcceptSwitch(),
+          SizedBox(
+            height: 10.0,
+          ),
+          RaisedButton(
+            color: Colors.white,
+            child: Text("Login"),
+            onPressed: () => Navigator.pushReplacementNamed(context, ProductPage.routeName),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buildAvatar() {
+    return Container(
+      height: 70.0,
+      width: 70.0,
+      //margin: EdgeInsets.only(top: 100.0),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/PP.jpg'),
+          fit: BoxFit.cover,
+          alignment: Alignment.center,
+        ),
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: Color(0xFF414457),
+          width: 2.0,
+          style: BorderStyle.solid,
+        ),
+        color: Color(0xFF414457),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 2.0,
+            spreadRadius: 1.0,
+            offset: Offset(0.0, 0.5),
+          ),
+        ],
+      ),
+    );
+  }
+
   DecorationImage _buildBackgroundImage() {
     return DecorationImage(
-        fit: BoxFit.cover,
-        image: AssetImage('assets/food.jpg'),
-        colorFilter:
-            ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop));
+      fit: BoxFit.cover,
+      image: AssetImage('assets/food.jpg'),
+      colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
+    );
   }
 
   Widget _buildEmailTextField() {
     return TextField(
-      decoration: InputDecoration(
-          labelText: 'Email', filled: true, fillColor: Colors.white),
+      decoration: InputDecoration(labelText: 'Email', filled: true, fillColor: Colors.white),
     );
   }
 
   Widget _buildPasswordTextField() {
     return TextField(
-      decoration: InputDecoration(
-          labelText: 'Password', filled: true, fillColor: Colors.white),
+      decoration: InputDecoration(labelText: 'Password', filled: true, fillColor: Colors.white),
     );
   }
 
@@ -85,7 +135,7 @@ class AuthPage extends StatelessWidget {
     return SwitchListTile(
       title: Text(
         'Agree',
-        style: TextStyle(color: Colors.black),
+        style: TextStyle(color: Colors.white),
       ),
       value: isAgreed,
       onChanged: (bool value) {},

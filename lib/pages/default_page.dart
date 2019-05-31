@@ -24,10 +24,11 @@ class _MyDefaultPageState extends State<DefaultPage> {
             Stack(
               children: <Widget>[
                 ClipShadowPath(
-                  shadow: Shadow(blurRadius: 1.0),
+                  shadow: Shadow(blurRadius: 5.0, color: Colors.black),
                   clipper: CustomShapeClipper(),
                   child: Container(
                     height: 250.0,
+                    //margin: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [

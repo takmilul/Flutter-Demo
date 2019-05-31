@@ -3,8 +3,6 @@ import 'package:flutter_app/pages/product_create_page.dart';
 import 'package:flutter_app/pages/product_list_page.dart';
 import 'package:flutter_app/pages/product_page.dart';
 
-import 'auth_page.dart';
-
 class ProductsAdminPage extends StatelessWidget {
   static const routeName = '/ProductsAdminPage';
   final Function addProduct;

@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
 
 class ProfileCardClipper extends CustomClipper<Path>{
+  final BuildContext context;
+  
+  ProfileCardClipper(this.context);
+  
   @override
   Path getClip(Size size) {
     final Path path = Path();
-    var width = size.width;
-    var height = size.height;
-    path.lineTo(size.width/2 - 40, 0.0);
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     
-    var firstControlPoint = Offset(size.width/2-40, 40);
-    var firstEndPoint = Offset(size.width/2, 40);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy, firstEndPoint.dx, firstEndPoint.dy);
+    path.lineTo(5.0, 5.0);
+    path.lineTo(size.width/2 - 43, 5.0);
     
-    var secondControlPoint = Offset(size.width/2+40, 40.0);
-    var secondEndPoint = Offset(size.width/2+40, 0.0);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy, secondEndPoint.dx, secondEndPoint.dy);
+    var firstControlPoint = Offset(size.width/2-40, 62.0);
+    var firstEndPoint = Offset(size.width/2, 42);
+    //path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy, firstEndPoint.dx, firstEndPoint.dy);
     
-    path.lineTo(size.width * 0.5, 0.0);
-    path.lineTo(size.width, 0.0);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0.0, size.height);
-    path.lineTo(0.0, 0.0);
+    var secondControlPoint = Offset(size.width/2+40, 62.0);
+    var secondEndPoint = Offset(size.width/2+43, 5.0);
+    //path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy, secondEndPoint.dx, secondEndPoint.dy);
+    
+    path.cubicTo(firstControlPoint.dx, firstControlPoint.dy, secondControlPoint.dx, secondControlPoint.dy, secondEndPoint.dx, secondEndPoint.dy);
+    
+    path.lineTo(size.width-5, 5.0);
+    path.lineTo(size.width-5, size.height-5);
+    path.lineTo(5.0, size.height-5);
+    path.lineTo(5.0, 5.0);
     path.close();
     return path;
   }
