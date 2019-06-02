@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/custom_shape/clip_shadow_path.dart';
-import 'package:flutter_app/custom_shape/custom_shape_clipper.dart';
 import 'package:flutter_app/custom_shape/profile_card_clipper.dart';
 import 'package:flutter_app/pages/product_page.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
 //  static const routeName = '/authPage';
   static const String routeName = '/';
-  final bool isAgreed = false;
   final Function addProduct;
   final Function deleteProduct;
 
   AuthPage(this.addProduct, this.deleteProduct);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _AuthPageState();
+  }
+}
+
+class _AuthPageState extends State<AuthPage> {
+  bool isAgreed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +36,13 @@ class AuthPage extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(top: 50.0, bottom: 10, left: 2, right: 2),
+                  padding:
+                      EdgeInsets.only(top: 50.0, bottom: 10, left: 2, right: 2),
                   child: ClipShadowPath(
-                    shadow: Shadow(color: Colors.black54, blurRadius: 3.0, offset: Offset(0.0, 0.5)),
+                    shadow: Shadow(
+                        color: Colors.black54,
+                        blurRadius: 3.0,
+                        offset: Offset(0.0, 0.5)),
                     clipper: ProfileCardClipper(context),
                     child: buildLoginCard(context),
                   ),
@@ -74,7 +85,8 @@ class AuthPage extends StatelessWidget {
           RaisedButton(
             color: Colors.white,
             child: Text("Login"),
-            onPressed: () => Navigator.pushReplacementNamed(context, ProductPage.routeName),
+            onPressed: () =>
+                Navigator.pushReplacementNamed(context, ProductPage.routeName),
           ),
         ],
       ),
@@ -115,19 +127,22 @@ class AuthPage extends StatelessWidget {
     return DecorationImage(
       fit: BoxFit.cover,
       image: AssetImage('assets/food.jpg'),
-      colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
+      colorFilter:
+          ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
     );
   }
 
   Widget _buildEmailTextField() {
     return TextField(
-      decoration: InputDecoration(labelText: 'Email', filled: true, fillColor: Colors.white),
+      decoration: InputDecoration(
+          labelText: 'Email', filled: true, fillColor: Colors.white),
     );
   }
 
   Widget _buildPasswordTextField() {
     return TextField(
-      decoration: InputDecoration(labelText: 'Password', filled: true, fillColor: Colors.white),
+      decoration: InputDecoration(
+          labelText: 'Password', filled: true, fillColor: Colors.white),
     );
   }
 
@@ -138,7 +153,11 @@ class AuthPage extends StatelessWidget {
         style: TextStyle(color: Colors.white),
       ),
       value: isAgreed,
-      onChanged: (bool value) {},
+      onChanged: (bool value) {
+        setState(() {
+          isAgreed = value;
+        });
+      },
     );
   }
 }
