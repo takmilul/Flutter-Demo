@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/product_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:toast/toast.dart';
 
 class ProductCreatePage extends StatefulWidget {
   static const routeName = '/ProductCreatePage';
@@ -29,23 +28,27 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     final double targetWidth = deviceWidth > 550.0 ? 400.0 : deviceWidth * 0.9;
     final double targetPadding = deviceWidth - targetWidth;
 
-    return Container(
-      margin: EdgeInsets.all(8.0),
-      child: Form(
-        key: _formKey,
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
-          children: <Widget>[
-            _buildTitleTextField(),
-            _buildDescriptionTextField(),
-            _buildPriceTextField(),
-            _buildSwitch(),
-            RaisedButton(
-              color: Theme.of(context).accentColor,
-              child: Text('Save'),
-              onPressed: _createProduct,
-            ),
-            /*GestureDetector(
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Container(
+        margin: EdgeInsets.all(8.0),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
+            children: <Widget>[
+              _buildTitleTextField(),
+              _buildDescriptionTextField(),
+              _buildPriceTextField(),
+              _buildSwitch(),
+              RaisedButton(
+                color: Theme.of(context).accentColor,
+                child: Text('Save'),
+                onPressed: _createProduct,
+              ),
+              /*GestureDetector(
             onTap: _createProduct,
             child: Container(
               alignment: Alignment.center,
@@ -54,7 +57,8 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
               child: Text('My Button'),
             ),
           ),*/
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -63,8 +67,8 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   Widget _buildTitleTextField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Title'),
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'Required field';
         }
       },
@@ -81,8 +85,8 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   Widget _buildDescriptionTextField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Description'),
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'Required field';
         }
       },
@@ -100,8 +104,8 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   Widget _buildPriceTextField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Price'),
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'Required field';
         }
       },
@@ -121,15 +125,17 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
       title: Text('Do you agree?'),
       value: isAgreed,
       onChanged: (bool value) {
-        setState(() {
-          isAgreed = value;
-        },);
+        setState(
+          () {
+            isAgreed = value;
+          },
+        );
       },
     );
   }
 
   void _createProduct() {
-    if(!_formKey.currentState.validate()){
+    if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
