@@ -3,7 +3,7 @@ import 'package:flutter_app/pages/auth_page.dart';
 import 'package:flutter_app/pages/default_page.dart';
 import 'package:flutter_app/pages/product_page.dart';
 import 'package:flutter_app/pages/products_admin_page.dart';
-import 'package:flutter_app/pages/product_create_page.dart';
+import 'package:flutter_app/pages/product_edit_page.dart';
 import 'package:flutter_app/pages/product_list_page.dart';
 import 'package:flutter_app/pages/product_detail_page.dart';
 import 'package:flutter/rendering.dart';
@@ -37,6 +37,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _updateProduct(int index, Map<String, dynamic> product){
+    setState(() {
+      _products[index] = product;
+    });
+  }
+  
   void _deleteProduct(int index) {
     setState(() {
       _products.removeAt(index);
@@ -56,9 +62,9 @@ class _MyAppState extends State<MyApp> {
         DefaultPage.routeName: (context) => DefaultPage(),
         AuthPage.routeName: (context) => AuthPage(_addProduct, _deleteProduct),
         ProductPage.routeName: (context) => ProductPage(_products),
-        ProductsAdminPage.routeName: (context) => ProductsAdminPage(_addProduct, _deleteProduct),
-        ProductCreatePage.routeName: (context) => ProductCreatePage(_addProduct, _deleteProduct),
-        ProductListPage.routeName: (context) => ProductListPage(),
+        ProductsAdminPage.routeName: (context) => ProductsAdminPage(_addProduct, _updateProduct, _deleteProduct, _products),
+        ProductEditPage.routeName: (context) => ProductEditPage(addProduct: _addProduct, deleteProduct: _deleteProduct),
+        ProductListPage.routeName: (context) => ProductListPage(_products, _updateProduct),
         //ProductDetail.routeName: (context) => ProductDetail()
       },
       onGenerateRoute: (RouteSettings settings) {
