@@ -7,6 +7,7 @@ import 'package:flutter_app/pages/product_edit_page.dart';
 import 'package:flutter_app/pages/product_list_page.dart';
 import 'package:flutter_app/pages/product_detail_page.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_app/models/product.dart';
 
 void main() {
 //  debugPaintSizeEnabled = true;
@@ -23,7 +24,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Map<String, dynamic>> _products = [];
+  List<Product> _products = [];
 
   @override
   void initState() {
@@ -31,13 +32,13 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  void _addProduct(Map<String, dynamic> product) {
+  void _addProduct(Product product) {
     setState(() {
       _products.add(product);
     });
   }
 
-  void _updateProduct(int index, Map<String, dynamic> product){
+  void _updateProduct(int index, Product product){
     setState(() {
       _products[index] = product;
     });
@@ -64,7 +65,7 @@ class _MyAppState extends State<MyApp> {
         ProductPage.routeName: (context) => ProductPage(_products),
         ProductsAdminPage.routeName: (context) => ProductsAdminPage(_addProduct, _updateProduct, _deleteProduct, _products),
         ProductEditPage.routeName: (context) => ProductEditPage(addProduct: _addProduct, deleteProduct: _deleteProduct),
-        ProductListPage.routeName: (context) => ProductListPage(_products, _updateProduct),
+        ProductListPage.routeName: (context) => ProductListPage(_products, _updateProduct, _deleteProduct),
         //ProductDetail.routeName: (context) => ProductDetail()
       },
       onGenerateRoute: (RouteSettings settings) {
@@ -76,7 +77,7 @@ class _MyAppState extends State<MyApp> {
         if (elements[1] == 'ProductDetailPage') {
           int index = int.parse(elements[2]);
           return MaterialPageRoute<bool>(
-            builder: (BuildContext context) => ProductDetail(_products[index]['title'], _products[index]['imageUrl'], _products[index]['address']),
+            builder: (BuildContext context) => ProductDetail(_products[index].title, _products[index].image, _products[index].address),
           );
         }
         return null;

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/widgets/products/products.dart';
 import 'default_page.dart';
 import 'products_admin_page.dart';
+import 'package:flutter_app/models/product.dart';
 
 class ProductPage extends StatelessWidget {
   static const routeName = '/ProductPage';
   /*final Function _addProduct;
   final Function _deleteProduct;*/
-  final List<Map<String, dynamic>> products;
+  final List<Product> products;
 
   ProductPage(this.products);
 
